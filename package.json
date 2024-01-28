@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "mime-types": "^2.1.35"
+  },
+  "devDependencies": {
+    "webpack": "^5.90.0",
+    "webpack-cli": "^5.1.4"
+  }
+}

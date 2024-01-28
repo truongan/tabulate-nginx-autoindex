@@ -44,7 +44,9 @@
       return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
     }
     document.addEventListener("DOMContentLoaded", () => {
-
+      var title = document.querySelector('#the-rest > title').innerText;
+      document.querySelector('h1').innerHTML = title;
+      
       var pre = document.querySelector('pre');
       // console.log(pre.innerHTML);
       var text = pre.innerHTML.trim();
