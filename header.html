@@ -1,0 +1,103 @@
+<!doctype html>
+<html class ="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link href="https://unpkg.com/tabulator-tables@5.5.4/dist/css/tabulator_midnight.min.css" rel="stylesheet">
+  <!-- <link href="https://unpkg.com/tabulator-tables@5.5.4/dist/css/tabulator_midnight.min.css" rel="stylesheet"> -->
+  <script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.5.4/dist/js/tabulator.min.js"></script>
+
+  <style type="text/tailwindcss">
+    a {
+      @apply underline text-blue-600 hover:text-blue-800 visited:text-purple-600
+    }
+
+  /* .tabulator {
+
+    .tabulator-headers, .tabulator-row {
+        @apply flex border-b border-dotted border-neutral-400;
+    }
+
+    .tabulator-cell[tabulator-field='field1'], .tabulator-col[tabulator-field='field1'] {
+        @apply border-r border-neutral-300 mr-4;
+    }
+
+    .tabulator-cell[tabulator-field='field2'], .tabulator-cell[tabulator-field='field3'] {
+        @apply bg-neutral-100;
+    }
+
+  } */
+
+  </style>
+
+  <script type="text/javascript">
+
+    function format_bytes(bytes,decimals) {
+      if(isNaN(bytes)) return "-";
+      if(bytes == 0) return '0 Bytes';
+      var k = 1024,
+          dm = decimals || 2,
+          sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
+          i = Math.floor(Math.log(bytes) / Math.log(k));
+      return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+    }
+    document.addEventListener("DOMContentLoaded", () => {
+
+      var pre = document.querySelector('pre');
+      // console.log(pre.innerHTML);
+      var text = pre.innerHTML.trim();
+
+      lines = text.split('\n');
+
+      var data = [];
+
+      for (line of lines){
+        tag = line.split('</a>')
+        // console.log(tag);
+        obj = {};
+        // if (tag[1] == '') continue;
+        
+        x = tag[0].split('>')
+        
+        obj['href'] = x[0].slice(3);
+        obj['text'] = x[1]
+
+        x = tag[1].trim().split(/  +/)        
+        obj['date'] = x[0];
+        obj['size-in-bytes'] = x[1];
+        obj['size'] = format_bytes(x[1]);
+        
+        data.push(obj);
+      }
+      console.log(data);
+      console.log(JSON.stringify(data)); 
+
+
+      
+      var table = new Tabulator("#example-table", {
+        data:data, //set initial table data
+        columns :[
+          {title: "File name", formatter:"link", field: "text"},
+          {title: "Time", field: "date"},
+          {title: "Size", field: "size"},
+          {title: "size-in-bytes", field: "size-in-bytes"},
+        ]
+      });
+    });
+
+  </script>
+</head>
+<body  class="bg-white dark:bg-stone-900 dark:text-green-100" >
+  <h1 class="text-3xl font-bold underline">
+    Hello world!
+  </h1>
+  <div>
+    <div id="example-table"></div>
+    <div id="the-rest" class="hidden">
+
+
+
+  
+
