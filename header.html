@@ -13,23 +13,6 @@
     a {
       @apply underline text-blue-600 hover:text-blue-800 visited:text-purple-600
     }
-
-  /* .tabulator {
-
-    .tabulator-headers, .tabulator-row {
-        @apply flex border-b border-dotted border-neutral-400;
-    }
-
-    .tabulator-cell[tabulator-field='field1'], .tabulator-col[tabulator-field='field1'] {
-        @apply border-r border-neutral-300 mr-4;
-    }
-
-    .tabulator-cell[tabulator-field='field2'], .tabulator-cell[tabulator-field='field3'] {
-        @apply bg-neutral-100;
-    }
-
-  } */
-
   </style>
 
   <script type="text/javascript">
@@ -87,7 +70,11 @@
       var table = new Tabulator("#example-table", {
         data:data, //set initial table data
         columns :[
-          {title: "Icon", formatter:"image", field: "icon"},
+          {
+            title: "Icon", formatter:"image", field: "icon",
+            // height:"25px",
+            // width:"25px",
+          },
           {title: "File name", formatter:"link", field: "text"},
           {title: "Time", field: "date"},
           {title: "Size", field: "size"},
