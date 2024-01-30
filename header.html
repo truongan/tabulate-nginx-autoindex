@@ -5,13 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
 
+  
   <link href="https://unpkg.com/tabulator-tables@5.5.4/dist/css/tabulator_midnight.min.css" rel="stylesheet">
   <!-- <link href="https://unpkg.com/tabulator-tables@5.5.4/dist/css/tabulator_midnight.min.css" rel="stylesheet"> -->
+  <script src="https://cdn.jsdelivr.net/npm/luxon@3.4.4/build/global/luxon.min.js"></script>
   <script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.5.4/dist/js/tabulator.min.js"></script>
 
   <style type="text/tailwindcss">
     a {
-      @apply underline text-blue-500 hover:text-blue-900 visited:text-fuchsia-500
+      @apply underline text-blue-200 hover:text-blue-600 visited:text-fuchsia-200
     }
   </style>
 
@@ -54,9 +56,9 @@
         obj['text'] = x[1]
 
         x = tag[1].trim().split(/  +/)        
-        if (x[0] == '' ) obj['date'] = '-';
-        else obj['date'] = new Date(x[0]).toLocaleString('ja-JP');
-        // obj['date'] = x[0];
+        // if (x[0] == '' ) obj['date'] = '-';
+        // else obj['date'] = new Date(x[0]).toLocaleString('ja-JP');
+        obj['date'] = x[0];
         obj['size-in-bytes'] = x[1];
         obj['size'] = format_bytes(x[1]);
         
@@ -81,7 +83,13 @@
               labelField: 'text',
             }
           },
-          {title: "Date time", field: "date", sorter:"alphanum"},
+          {
+            title: "Date time", field: "date", sorter:"datetime",
+            sorterParams:{
+              format:"dd-MMM-yyyy HH:mm",
+              alignEmptyValues:"top",
+            }
+          },
           {title: "Size", field: "size"},
           {title: "size-in-bytes", field: "size-in-bytes"},
         ],
@@ -94,7 +102,7 @@
 
   </script>
 </head>
-<body  class="bg-white dark:bg-stone-900 dark:text-green-100" >
+<body  class=" dark:bg-stone-900 dark:text-green-100" >
   <div class = " h-dvh flex flex-col">
 
   <h1 class=" grow-0 text-3xl font-bold underline">
