@@ -1,10 +1,10 @@
-var mime = require('mime-types')
+import mime from 'mime';
 
-function file_name_to_mime(name){
+export function file_name_to_mime(name){
     if (name[name.length - 1] == "/") return "inode-directory";
     
-    type = mime.lookup(name);
+    var type = mime.getType(name);
     
-    if (type == false) return "inode-vnd.kde.service.unknown";
+    if (type == null) return "inode-vnd.kde.service.unknown";
     else return type.replace('/', '-');
 }

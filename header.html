@@ -34,6 +34,10 @@
 
   <script type="text/javascript">
 
+    function mime_to_icon_path(mime){
+      return  "/mimetypes/" + mime + ".svg";
+    }
+
     function format_bytes(bytes,decimals) {
       if(isNaN(bytes)) return "-";
       if(bytes == 0) return '0 Bytes';
@@ -71,6 +75,8 @@
         obj['size-in-bytes'] = x[1];
         obj['size'] = format_bytes(x[1]);
         
+        obj['icon'] = mime_to_icon_path(main.file_name_to_mime(obj['text']));
+
         data.push(obj);
       }
       console.log(data);
@@ -81,23 +87,27 @@
       var table = new Tabulator("#example-table", {
         data:data, //set initial table data
         columns :[
+          {title: "Icon", formatter:"image", field: "icon"},
           {title: "File name", formatter:"link", field: "text"},
           {title: "Time", field: "date"},
           {title: "Size", field: "size"},
           {title: "size-in-bytes", field: "size-in-bytes"},
-        ]
+        ],
+        maxHeight:"100%", 
       });
     });
 
   </script>
 </head>
 <body  class="bg-white dark:bg-stone-900 dark:text-green-100" >
-  <h1 class="text-3xl font-bold underline">
+  <div class = " h-dvh flex flex-col">
+
+  <h1 class=" grow-0 text-3xl font-bold underline">
     Hello world!
   </h1>
-  <div>
-    <div id="example-table"></div>
-    <div id="the-rest" class="hidden">
+  
+  <div class="grow" id="example-table"></div>
+  <div id="the-rest" class="hidden">
 
 
 
