@@ -60,7 +60,7 @@
         obj['size-in-bytes'] = x[1];
         obj['size'] = format_bytes(x[1]);
         
-        obj['icon'] = mime_to_icon_path(main.file_name_to_mime(obj['text']));
+        obj['icon'] = mime_to_icon_path(main.file_name_to_mime(obj['href']));
 
         data.push(obj);
       }
