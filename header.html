@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html class ="dark">
 <head>
   <meta charset="UTF-8">
@@ -48,13 +48,15 @@
         obj = {};
         // if (tag[1] == '') continue;
         
-        x = tag[0].split('>')
+        x = tag[0].split('">')
         
-        obj['href'] = x[0].slice(3);
+        obj['href'] = x[0].substring(9)
         obj['text'] = x[1]
 
         x = tag[1].trim().split(/  +/)        
-        obj['date'] = x[0];
+        if (x[0] == '' ) obj['date'] = '-';
+        else obj['date'] = new Date(x[0]).toLocaleString('ja-JP');
+        // obj['date'] = x[0];
         obj['size-in-bytes'] = x[1];
         obj['size'] = format_bytes(x[1]);
         
@@ -72,15 +74,21 @@
         columns :[
           {
             title: "Icon", formatter:"image", field: "icon",
-            // height:"25px",
-            // width:"25px",
           },
-          {title: "File name", formatter:"link", field: "text"},
-          {title: "Time", field: "date"},
+          {
+            title: "File name", formatter:"link", field: 'href',
+            formatterParams:{
+              labelField: 'text',
+            }
+          },
+          {title: "Date time", field: "date", sorter:"alphanum"},
           {title: "Size", field: "size"},
           {title: "size-in-bytes", field: "size-in-bytes"},
         ],
         maxHeight:"100%", 
+        initialSort:[
+          {column:"date", dir: "desc"}
+        ]
       });
     });
 
